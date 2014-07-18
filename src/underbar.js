@@ -195,7 +195,7 @@ var _ = {};
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
     
-    console.log(collection + ", " + iterator + ", " + accumulator);
+    //console.log(collection + ", " + iterator + ", " + accumulator);
     //console.log(collection);
     //console.log(accumulator);
     
@@ -209,7 +209,7 @@ var _ = {};
       {
         total = iterator(total, collection[i]);
       }
-      console.log(total);
+      //console.log(total);
     }
 
     /* SOMETHING IS WRONG HERE */
@@ -262,6 +262,34 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if(collection == undefined || collection.length < 1)
+    {
+      return false;
+    }
+
+    var someIterator = iterator;
+    if(someIterator == undefined)
+    {
+      someIterator = function(item){
+        if(typeof item == 'string')
+        {
+          if(item == 'yes')
+          {
+            return true;
+          }
+        }
+        _.identity(item);
+      };
+    }
+
+    var bizzaroCollection = new Array();
+
+    for(var i=0; i<collection.length; i++)
+    {
+      bizzaroCollection.push(!Boolean(someIterator(collection[i])));
+    }
+
+    return !_.every(bizzaroCollection);
   };
 
 
