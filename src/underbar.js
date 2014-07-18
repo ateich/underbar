@@ -194,13 +194,14 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
-    /*
+    
     console.log(collection + ", " + iterator + ", " + accumulator);
-    console.log(collection);
-    console.log(accumulator);
-    */
+    //console.log(collection);
+    //console.log(accumulator);
+    
 
     var total = accumulator;
+    if(total == undefined){total = 0;}
     
     if(Array.isArray(collection))
     {
@@ -208,7 +209,7 @@ var _ = {};
       {
         total = iterator(total, collection[i]);
       }
-      //console.log(total);
+      console.log(total);
     }
 
     /* SOMETHING IS WRONG HERE */
